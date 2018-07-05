@@ -1,0 +1,4 @@
+Q1) db.zips.aggregate([{$match:{state:"IA"}},{$group:{_id:"$state",zip_codes:{$addToSet:"$_id"}}}]).pretty();
+Q2) db.zips.aggregate([{$match:{pop:{$lt:1000}}}]).pretty();
+Q3) db.zips.aggregate([{$group:{_id:{state:"$state",city:"$city"},zip_codes:{$sum:1}}},{$match:{zip_codes:{$gt:1}}},{$sort:{"_id.state":1,"_id.city":1}}]).pretty();
+Q4) db.zips.aggregate([{$group:{_id:{state:"$state",city:"$city"}}},{$sort:{"_id.state":1,"pop":1}},{$group:{_id:"$_id.state",city:{$first:"$_id.city"}}},{$sort:{"_id":1}}]).pretty();
